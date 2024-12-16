@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goku Prowler</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .red-text {
+            color: red;
+            font-size: 32px;
+            text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px darkred;
+            animation: flicker 1.5s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .goku-image {
+            width: 300px;
+            height: auto;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-5px, 5px); }
+            50% { transform: translate(5px, -5px); }
+            75% { transform: translate(-5px, -5px); }
+            100% { transform: translate(5px, 5px); }
+        }
+
+        .fps-crasher {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <img src="https://i.kym-cdn.com/entries/icons/original/000/044/399/pgcover.jpg" alt="Goku Prowler" class="goku-image">
+        <p class="red-text">REASON: NOW IT'S STOP RULE 34. YOU SEXUALLY YOUR IP: XXX.XXX.XXX.XXX <br> IM COMING DOOR, GOKU!</p>
+    </div>
+    <canvas class="fps-crasher"></canvas>
+    <script>
+        // FPS-crashing effect
+        const canvas = document.querySelector('.fps-crasher');
+        const ctx = canvas.getContext('2d');
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function drawRandomCircles() {
+            for (let i = 0; i < 5000; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = Math.random() * 5;
+                ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            requestAnimationFrame(drawRandomCircles);
+        }
+        drawRandomCircles();
+    </script>
+</body>
+</html>
