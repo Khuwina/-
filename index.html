@@ -12,14 +12,11 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
+            text-align: center;
         }
 
-        .center {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        .container {
+            margin-top: 20vh;
         }
 
         .red-text {
@@ -48,6 +45,26 @@
             100% { transform: translate(5px, 5px); }
         }
 
+        .button {
+            margin: 20px;
+            padding: 15px 30px;
+            font-size: 24px;
+            color: white;
+            background-color: red;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: darkred;
+        }
+
+        .hidden {
+            display: none;
+        }
+
         .fps-crasher {
             position: absolute;
             top: 0;
@@ -60,35 +77,60 @@
     </style>
 </head>
 <body>
-    <div class="center">
-        <img src="https://i.kym-cdn.com/entries/icons/original/000/044/399/pgcover.jpg" alt="Goku Prowler" class="goku-image">
-        <p class="red-text">REASON: NOW IT'S STOP RULE 34. YOU SEXUALLY YOUR IP: XXX.XXX.XXX.XXX <br> IM COMING DOOR, GOKU!</p>
+    <div class="container">
+        <img src="https://example.com/goku_image.jpg" alt="Goku Prowler" class="goku-image">
+        <p class="red-text">GOKU PROWLER: "KNOCK DOOR AND YOU DIE!"</p>
+        <p class="red-text">NOW IT'S STOP RULE 34! ENJOY YOUR IP BAN!</p>
+        <button class="button" onclick="noAction()">NO</button>
+        <button class="button" onclick="yesAction()">YES</button>
+        <p id="response" class="red-text hidden"></p>
     </div>
-    <canvas class="fps-crasher"></canvas>
+    <canvas class="fps-crasher hidden"></canvas>
+
     <script>
-        // FPS-crashing effect
         const canvas = document.querySelector('.fps-crasher');
         const ctx = canvas.getContext('2d');
+
+        // Resize canvas
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         };
         window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
 
-        function drawRandomCircles() {
-            for (let i = 0; i < 5000; i++) {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                const size = Math.random() * 5;
-                ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
-                ctx.beginPath();
-                ctx.arc(x, y, size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-            requestAnimationFrame(drawRandomCircles);
+        // NO button action
+        function noAction() {
+            const response = document.getElementById('response');
+            response.textContent = "Thanks! It's NOT Rule 34. You're Safe!";
+            response.classList.remove('hidden');
         }
-        drawRandomCircles();
+
+        // YES button action
+        function yesAction() {
+            const response = document.getElementById('response');
+            response.textContent = "YOU CHOSE YES! YOU DIE! CRASHING FPS NOW!";
+            response.classList.remove('hidden');
+            canvas.classList.remove('hidden');
+            resizeCanvas();
+            crashFPS();
+        }
+
+        // FPS-crashing effect
+        function crashFPS() {
+            function drawRandomShapes() {
+                for (let i = 0; i < 10000; i++) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    const size = Math.random() * 5;
+                    ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                requestAnimationFrame(drawRandomShapes);
+            }
+            drawRandomShapes();
+        }
     </script>
 </body>
 </html>
