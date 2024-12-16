@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goku Prowler</title>
+    <title>STOP Rule 34</title>
     <style>
         body {
             background-color: black;
@@ -16,12 +16,12 @@
         }
 
         .container {
-            margin-top: 20vh;
+            margin-top: 15vh;
         }
 
         .red-text {
             color: red;
-            font-size: 32px;
+            font-size: 28px;
             text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px darkred;
             animation: flicker 1.5s infinite;
         }
@@ -31,18 +31,19 @@
             50% { opacity: 0.5; }
         }
 
-        .goku-image {
-            width: 300px;
+        .character-image {
+            width: 200px;
             height: auto;
+            margin: 20px;
             animation: shake 0.5s infinite;
         }
 
         @keyframes shake {
             0% { transform: translate(0, 0); }
-            25% { transform: translate(-5px, 5px); }
-            50% { transform: translate(5px, -5px); }
-            75% { transform: translate(-5px, -5px); }
-            100% { transform: translate(5px, 5px); }
+            25% { transform: translate(-10px, 10px); }
+            50% { transform: translate(10px, -10px); }
+            75% { transform: translate(-10px, -10px); }
+            100% { transform: translate(10px, 10px); }
         }
 
         .button {
@@ -78,11 +79,12 @@
 </head>
 <body>
     <div class="container">
-        <img src="https://example.com/goku_image.jpg" alt="Goku Prowler" class="goku-image">
-        <p class="red-text">GOKU PROWLER: "KNOCK DOOR AND YOU DIE!"</p>
-        <p class="red-text">NOW IT'S STOP RULE 34! ENJOY YOUR IP BAN!</p>
-        <button class="button" onclick="noAction()">NO</button>
+        <img src="https://example.com/goku_image.jpg" alt="Goku Prowler" class="character-image">
+        <img src="https://example.com/vegeta_image.jpg" alt="Vegeta" class="character-image">
+        <p class="red-text">STOP RULE 34 NOW! GOKU AND VEGETA SAY: "NO MORE SEXUALITY!"</p>
         <button class="button" onclick="yesAction()">YES</button>
+        <button class="button" onclick="noAction()">NO</button>
+        <button class="button" onclick="peaceAction()">I WANT PEACE</button>
         <p id="response" class="red-text hidden"></p>
     </div>
     <canvas class="fps-crasher hidden"></canvas>
@@ -98,38 +100,61 @@
         };
         window.addEventListener('resize', resizeCanvas);
 
-        // NO button action
-        function noAction() {
-            const response = document.getElementById('response');
-            response.textContent = "Thanks! It's NOT Rule 34. You're Safe!";
-            response.classList.remove('hidden');
-        }
-
         // YES button action
         function yesAction() {
             const response = document.getElementById('response');
-            response.textContent = "YOU CHOSE YES! YOU DIE! CRASHING FPS NOW!";
+            response.textContent = "YOU CHOSE YES! CHAOS ACTIVATED!";
             response.classList.remove('hidden');
             canvas.classList.remove('hidden');
             resizeCanvas();
-            crashFPS();
+            triggerChaos();
         }
 
-        // FPS-crashing effect
-        function crashFPS() {
-            function drawRandomShapes() {
+        // NO button action
+        function noAction() {
+            const response = document.getElementById('response');
+            response.textContent = "Good choice! You’re safe now.";
+            response.classList.remove('hidden');
+            canvas.classList.add('hidden'); // Stop FPS effects
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+        }
+
+        // PEACE button action
+        function peaceAction() {
+            const response = document.getElementById('response');
+            response.textContent = "You chose peace. Clearing the page...";
+            response.classList.remove('hidden');
+            setTimeout(() => {
+                document.body.innerHTML = "<h1 style='color: green;'>Peace Restored. No More Rule 34.</h1>";
+            }, 2000);
+        }
+
+        // Combined FPS-crashing effect
+        function triggerChaos() {
+            let explosionSize = 1;
+
+            function drawEffects() {
                 for (let i = 0; i < 10000; i++) {
                     const x = Math.random() * canvas.width;
                     const y = Math.random() * canvas.height;
-                    const size = Math.random() * 5;
-                    ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+
+                    // Goku Effect (Yellow Energy Storm)
+                    if (Math.random() > 0.5) {
+                        ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, 0)`;
+                    } else {
+                        // Vegeta Effect (Purple Explosion)
+                        ctx.fillStyle = `rgb(${Math.random() * 255}, 0, ${Math.random() * 255})`;
+                    }
+
+                    const size = Math.random() * explosionSize;
                     ctx.beginPath();
                     ctx.arc(x, y, size, 0, Math.PI * 2);
                     ctx.fill();
                 }
-                requestAnimationFrame(drawRandomShapes);
+                explosionSize += 0.5; // Gradually increases chaos
+                requestAnimationFrame(drawEffects);
             }
-            drawRandomShapes();
+            drawEffects();
         }
     </script>
 </body>
